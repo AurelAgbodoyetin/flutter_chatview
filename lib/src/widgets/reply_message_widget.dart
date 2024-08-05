@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
 import '../models/message.dart';
 import '../models/replied_message_configuration.dart';
 import '../utils/constants/constants.dart';
-import '../utils/package_strings.dart';
+// import '../utils/package_strings.dart';
 import 'chat_view_inherited_widget.dart';
 import 'vertical_line.dart';
 
@@ -55,9 +55,8 @@ class ReplyMessageWidget extends StatelessWidget {
     final replyBySender = message.replyMessage.replyBy == currentUser?.id;
     final textTheme = Theme.of(context).textTheme;
     final replyMessage = message.replyMessage.message;
-    final messagedUser =
-        chatController?.getUserFromId(message.replyMessage.replyBy);
-    final replyBy = replyBySender ? PackageStrings.you : messagedUser?.name;
+    // final messagedUser = chatController?.getUserFromId(message.replyMessage.replyBy);
+    // final replyBy = replyBySender ? PackageStrings.you : messagedUser?.name;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -67,24 +66,22 @@ class ReplyMessageWidget extends StatelessWidget {
               left: horizontalPadding,
               bottom: 4,
             ),
-        constraints:
-            BoxConstraints(maxWidth: repliedMessageConfig?.maxWidth ?? 280),
+        constraints: BoxConstraints(maxWidth: repliedMessageConfig?.maxWidth ?? 280),
         child: Column(
           crossAxisAlignment:
               replyBySender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            Text(
-              "${PackageStrings.repliedBy} $replyBy",
-              style: repliedMessageConfig?.replyTitleTextStyle ??
-                  textTheme.bodyMedium!
-                      .copyWith(fontSize: 14, letterSpacing: 0.3),
-            ),
-            const SizedBox(height: 6),
+            // Text(
+            //   "${PackageStrings.repliedBy} $replyBy",
+            //   style: repliedMessageConfig?.replyTitleTextStyle ??
+            //       textTheme.bodyMedium!
+            //           .copyWith(fontSize: 14, letterSpacing: 0.3),
+            // ),
+            // const SizedBox(height: 6),
             IntrinsicHeight(
               child: Row(
-                mainAxisAlignment: replyBySender
-                    ? MainAxisAlignment.end
-                    : MainAxisAlignment.start,
+                mainAxisAlignment:
+                    replyBySender ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   if (!replyBySender)
                     VerticalLine(
@@ -97,20 +94,15 @@ class ReplyMessageWidget extends StatelessWidget {
                       opacity: repliedMessageConfig?.opacity ?? 0.8,
                       child: message.replyMessage.messageType.isImage
                           ? Container(
-                              height: repliedMessageConfig
-                                      ?.repliedImageMessageHeight ??
-                                  100,
-                              width: repliedMessageConfig
-                                      ?.repliedImageMessageWidth ??
-                                  80,
+                              height: repliedMessageConfig?.repliedImageMessageHeight ?? 100,
+                              width: repliedMessageConfig?.repliedImageMessageWidth ?? 80,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(replyMessage),
                                   fit: BoxFit.fill,
                                 ),
-                                borderRadius:
-                                    repliedMessageConfig?.borderRadius ??
-                                        BorderRadius.circular(14),
+                                borderRadius: repliedMessageConfig?.borderRadius ??
+                                    BorderRadius.circular(14),
                               ),
                             )
                           : Container(
@@ -136,28 +128,22 @@ class ReplyMessageWidget extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.mic,
-                                          color: repliedMessageConfig
-                                                  ?.micIconColor ??
+                                          color: repliedMessageConfig?.micIconColor ??
                                               Colors.white,
                                         ),
                                         const SizedBox(width: 2),
-                                        if (message.replyMessage
-                                                .voiceMessageDuration !=
-                                            null)
+                                        if (message.replyMessage.voiceMessageDuration != null)
                                           Text(
-                                            message.replyMessage
-                                                .voiceMessageDuration!
+                                            message.replyMessage.voiceMessageDuration!
                                                 .toHHMMSS(),
-                                            style:
-                                                repliedMessageConfig?.textStyle,
+                                            style: repliedMessageConfig?.textStyle,
                                           ),
                                       ],
                                     )
                                   : Text(
                                       replyMessage,
                                       style: repliedMessageConfig?.textStyle ??
-                                          textTheme.bodyMedium!
-                                              .copyWith(color: Colors.black),
+                                          textTheme.bodyMedium!.copyWith(color: Colors.black),
                                     ),
                             ),
                     ),
